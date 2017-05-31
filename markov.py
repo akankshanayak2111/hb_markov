@@ -58,25 +58,30 @@ def make_chains(text_string):
 def make_text(chains):
     """Returns text from chains."""
 
+    words = []
+
+    bigram = choice(chains.keys())
+    # value = choice(chains[key])
     
-    for key_pair, values in chains.items():
-        link = ' '.join(key_pair) + " " + choice(values)
-        words = link.split(" ")
-        new_key_pair = (words[1], words[2])
-    # words = []
-        while new_key_pair in chains:
-            link2 = ' '.join(key_pair) + " " + choice(values)
-            words = link2.split(" ")
-            new_key_pair = (words[1], words[2])
-            print link + '' + link2
 
-    # ('you', 'like') --> 'you like' + random.value
+    while bigram in chains.keys():
+        bigram_first = bigram[0]
+        bigram_second = bigram[1]
+        value = choice(chains[bigram])
+
+        words.append(bigram_first)
+        words.append(bigram_second)
+        words.append(value)
+        
+        bigram = (bigram_second, value)
+        
+ 
+    return " ".join(words)
 
     
-    # return " ".join(words)
 
 
-input_path = "green-eggs.txt"
+input_path = "gettysburg.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
@@ -87,7 +92,7 @@ chains = make_chains(input_text)
 # Produce random text
 random_text = make_text(chains)
 
-# print random_text
+print random_text
 
 #pseudo code making the dictionary:
 # create a dictionary with the keys as the first two words
