@@ -52,22 +52,28 @@ def make_chains(text_string):
         else:
             chains[key].append(value)
 
-
-
-
-
-    print chains
     return chains
 
 
 def make_text(chains):
     """Returns text from chains."""
 
-    words = []
+    
+    for key_pair, values in chains.items():
+        link = ' '.join(key_pair) + " " + choice(values)
+        words = link.split(" ")
+        new_key_pair = (words[1], words[2])
+    # words = []
+        while new_key_pair in chains:
+            link2 = ' '.join(key_pair) + " " + choice(values)
+            words = link2.split(" ")
+            new_key_pair = (words[1], words[2])
+            print link + '' + link2
 
-    # your code goes here
+    # ('you', 'like') --> 'you like' + random.value
 
-    return " ".join(words)
+    
+    # return " ".join(words)
 
 
 input_path = "green-eggs.txt"
@@ -78,12 +84,12 @@ input_text = open_and_read_file(input_path)
 # # Get a Markov chain
 chains = make_chains(input_text)
 
-# # Produce random text
-# random_text = make_text(chains)
+# Produce random text
+random_text = make_text(chains)
 
 # print random_text
 
-#pseudo code
+#pseudo code making the dictionary:
 # create a dictionary with the keys as the first two words
 # pray that it turns into tuples
 # grab the third word and save it as a value
@@ -91,3 +97,9 @@ chains = make_chains(input_text)
 # save the values to a list
 # creating a new list for every key
 # if the key already exists, we do not have to create a new list
+
+#pseudo code for generating random text:
+# make a link with the two words from the key and the random word from the value list
+# make a new key out of the second word from the previous key and...
+# ...add the random word from the value list
+# repeat
