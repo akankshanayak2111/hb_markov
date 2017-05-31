@@ -1,6 +1,6 @@
 """Generate markov text from text files."""
 
-
+import sys
 from random import choice
 
 
@@ -80,11 +80,10 @@ def make_text(chains):
 
     
 
-
-input_path = "gettysburg.txt"
+filename = sys.argv[1]
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
+input_text = open_and_read_file(filename)
 
 # # Get a Markov chain
 chains = make_chains(input_text)
